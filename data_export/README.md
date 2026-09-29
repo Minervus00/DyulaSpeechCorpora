@@ -13,13 +13,17 @@ It is a placeholder, intended for storing raw and processed data files.
 
 ### Usage
 
-**For general datasets:**
+**For general datasets (e.g. the Dyula Bible):**
 ```bash
 python data_export/prepare_hf_dataset.py \
-  --input_folder datasets/moore/bible/aligned \
-  --repo_id anyantudre/moore-speech-bible \
-  --hf_token YOUR_HF_TOKEN
+  --input_folder output \
+  --repo_id <hf-username>/dyula-speech-bible \
+  --hf_token YOUR_HF_TOKEN \
+  --filter_nums
 ```
+- Columns: `audio`, `transcription`, `duration`, `chapter`, `speaker_id` (`UNKNOWN` unless you ran [speaker_clustering](../speaker_clustering/README.md) first).
+- `--filter_nums` (optional): drops segments whose transcription contains digits (e.g. chapter headings such as "Lok fɔlɔ 10").
+- The dataset is pushed as **private**.
 
 **For proverbes (paired Moore-French):**
 ```bash

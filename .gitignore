@@ -13,6 +13,21 @@ tutorials/cleaning.ipynb
 tutorials/STEPS_BIBLE_DATASET_CREATION.md
 ./pipelines_proverbes_2.sh
 
+# Dyula data (crawled / aligned / converted) -- far too large for git,
+# publish it to the Hugging Face Hub instead
+datasets/
+crawlers/bible/dyu_data/
+dyu_audio_sgmt/
+output/
+*.zip
+
+# speaker_clustering generated artifacts
+speaker_clustering/.model_cache/
+speaker_clustering/embeddings.npz
+
+# editor settings
+.vscode/
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

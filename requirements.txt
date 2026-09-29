@@ -1,8 +1,15 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 scrapy==2.13.1
 icu-tokenizer==0.0.1
 sox==1.5.0
-librosa==0.11.0 
+librosa==0.11.0
 datasets==3.6.0
 tensorboardX
-#ffmpeg-python #no need for now
-#fairseq #no need for now
+pydub==0.25.1
+# resemble-enhance
+
+# speaker_clustering/ (CPU-only, pulled from the extra index above)
+torch==2.13.0+cpu
+torchaudio==2.11.0+cpu
+speechbrain==1.1.0

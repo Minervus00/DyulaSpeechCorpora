@@ -47,12 +47,12 @@ class BibleScraper(Spider):
 
     def parse(self, response):
         content_to_pass = {
-            "ChapterContent_r___3KRx", 
-            "ChapterContent_label__R2PLt", 
-            "ChapterContent_note__YlDW0",
-            "ChapterContent_fr__0KsID", 
-            "ChapterContent_body__O3qjr", 
-            "ft", 
+            "ChapterContent-module__cat7xG__r",
+            "ChapterContent-module__cat7xG__label",
+            "ChapterContent-module__cat7xG__note",
+            "ChapterContent-module__cat7xG__fr",
+            "ChapterContent-module__cat7xG__body",
+            "ft",
             "w"
         }
         title = response.css("h1::text")
@@ -63,17 +63,18 @@ class BibleScraper(Spider):
         output_folder.mkdir(exist_ok=True, parents=True)
         output_filename = output_folder / f"{book}_{chapter}_{code}"
 
-        with open(f"{output_folder}/{code}.books", "a+") as titles:
+        with open(f"{output_folder}/{code}.books", "a+", encoding="utf-8") as titles:
             titles.write(f"{book}\t{chapter}\t{title}\n")
+        # audio already scraped in a previous run; skip re-downloading it here
         audio_url = "audio-bible".join(response.url.rsplit("bible", 1))
         yield Request(audio_url, cb_kwargs={"output_filename": output_filename}, callback=self.get_audio)
-        with open(f"{output_filename}.txt", "w") as output_file:
+        with open(f"{output_filename}.txt", "w", encoding="utf-8") as output_file:
             output_file.write(f"{title}\n")
-            for content in response.css("div.ChapterContent_chapter__uvbXo div"):
+            for content in response.css("div.ChapterContent-module__cat7xG__chapter div"):
                 if content.attrib["class"] in content_to_pass:
                     continue
                 verses = []
-                for span in content.css("span.ChapterContent_content__RrUqA, span.ChapterContent_heading__xBDcs"):
+                for span in content.css("span.ChapterContent-module__cat7xG__content, span.ChapterContent-module__cat7xG__heading"):
                     if span.attrib["class"] in content_to_pass:
                         continue
                     for verse in span.css("*::text").getall():
